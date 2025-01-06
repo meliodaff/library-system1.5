@@ -35,7 +35,8 @@ public class ReturnBook {
         this.bookId = bookId;
     }
 
-    public ReturnBook(String studentId, String title, String adminName, String borrowedDate, String returnDate, String returnedDate) {
+    public ReturnBook(int transactionId, String studentId, String title, String adminName, String borrowedDate, String returnDate, String returnedDate) {
+        this.transactionId = transactionId;
         this.studentId = studentId;
         this.title = title;
         this.adminName = adminName;

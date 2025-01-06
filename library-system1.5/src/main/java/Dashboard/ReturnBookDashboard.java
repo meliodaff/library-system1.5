@@ -31,6 +31,7 @@ public class ReturnBookDashboard {
 
     public void displayReturnedBooks(List<ReturnBook> books){
         for(ReturnBook returnBook : books){
+            System.out.println("Transaction ID: " + returnBook.getTransactionId());
             System.out.println("Book Borrowed By: " + returnBook.getStudentId());
             System.out.println("Book Title: " + returnBook.getTitle());
             System.out.println("Book Borrowed By Admin: " + returnBook.getAdminName());
@@ -47,6 +48,7 @@ public class ReturnBookDashboard {
             System.out.println("------------------------------------------------");
             return;
         }
+        System.out.println("Transaction ID: " + returnBook.getTransactionId());
         System.out.println("Book Borrowed By: " + returnBook.getStudentId());
         System.out.println("Book Title: " + returnBook.getTitle());
         System.out.println("Book Borrowed By Admin: " + returnBook.getAdminName());

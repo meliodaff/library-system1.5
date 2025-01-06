@@ -92,7 +92,7 @@ public class ReturnBookDAOImplementation implements ReturnBookDAO {
             ResultSet rs = cs.executeQuery();
 
             while(rs.next()){
-                book = new ReturnBook(rs.getString("student_id"), rs.getString("title"), rs.getString("admin_name"), rs.getString("borrowed_date"), rs.getString("return_date"), rs.getString("returned_date"));
+                book = new ReturnBook(rs.getInt("id"), rs.getString("student_id"), rs.getString("title"), rs.getString("admin_name"), rs.getString("borrowed_date"), rs.getString("return_date"), rs.getString("returned_date"));
                 books.add(book);
             }
         }
@@ -113,7 +113,7 @@ public class ReturnBookDAOImplementation implements ReturnBookDAO {
             ResultSet rs = cs.executeQuery();
 
             if(rs.next()){
-                returnBook = new ReturnBook(rs.getString("student_id"), rs.getString("title"), rs.getString("admin_name"), rs.getString("borrowed_date"), rs.getString("return_date"), rs.getString("returned_date"));
+                returnBook = new ReturnBook(rs.getInt("id"),rs.getString("student_id"), rs.getString("title"), rs.getString("admin_name"), rs.getString("borrowed_date"), rs.getString("return_date"), rs.getString("returned_date"));
             }
         }
         catch (Exception e){
