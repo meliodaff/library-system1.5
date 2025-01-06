@@ -9,7 +9,7 @@ public class BorrowBooksDashboard {
         System.out.println("[1] Display Borrowed Books");
         System.out.println("[2] Display Specific Borrowed Books");
         System.out.println("[3] Borrow Book");
-        System.out.println("[9] Back");
+        System.out.println("[4] Back");
         byte choice = scanner.nextByte();
         return choice;
     }
