@@ -23,19 +23,19 @@ public class Main {
         BorrowBookDAO borrowBookDAO = new BorrowBookDAOImplementation(database, adminDAO);
         ReturnBook returnBook = new ReturnBook();
         ReturnBookDAO returnBookDAO = new ReturnBookDAOImplementation(database);
-        AdminDashboard adminDashboard = new AdminDashboard();
+        AdminDashboard adminDashboard = new AdminDashboard(adminDAO, scanner);
         DisplayDashboards displayDashboards = new DisplayDashboards();
 
         ReturnBookDashboard returnBookDashboard = new ReturnBookDashboard(adminDAO);
         while(true){
-            int chooseDashboard = adminDashboard.frontDashboard(scanner);
+            int chooseDashboard = adminDashboard.frontDashboard();
             if(chooseDashboard == 1){
-                if (adminDashboard.loginDashboard(scanner, adminDAO) == null) {
+                if (adminDashboard.loginDashboard() == null) {
                     return;
                 }
                 System.out.println("Login successful!");
                 while(true) {
-                    byte choiceAdminDashboard = adminDashboard.adminDashboard(scanner);
+                    byte choiceAdminDashboard = adminDashboard.adminDashboard();
                     if (choiceAdminDashboard == 1) {
                         displayDashboards.displayOne(booksDashboard,bookDao, scanner);
                     } else if (choiceAdminDashboard == 2) {
@@ -124,7 +124,7 @@ public class Main {
                 System.out.print("Super Admin Password: ");
                 String password = scanner.nextLine();
                 if(adminDAO.validateSuperAdmin(username, password)){
-                    adminDashboard.registerDashboard(scanner, adminDAO);
+                    adminDashboard.registerDashboard();
                 }
                 else{
                     System.out.println("Wrong Super Admin Credentials");

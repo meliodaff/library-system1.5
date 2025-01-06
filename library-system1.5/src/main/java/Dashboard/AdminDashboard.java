@@ -4,8 +4,15 @@ import Model.Admin;
 import java.util.Scanner;
 
 public class AdminDashboard {
+    private final Scanner scanner;
+    private final AdminDAO adminDAO;
+    public AdminDashboard(AdminDAO adminDAO, Scanner scanner){
+        this.adminDAO = adminDAO;
+        this.scanner = scanner;
+    }
 
-    public byte frontDashboard(Scanner scanner){
+
+    public byte frontDashboard(){
         System.out.println("Welcome to book buddy");
         System.out.println("[1] Login");
         System.out.println("[2] Register");
@@ -14,7 +21,7 @@ public class AdminDashboard {
         return choice;
     }
 
-    public Admin loginDashboard(Scanner scanner, AdminDAO adminDAO){
+    public Admin loginDashboard(){
         System.out.println("Book Buddy");
         System.out.println("Login");
         System.out.print("Username: ");
@@ -25,7 +32,7 @@ public class AdminDashboard {
         return admin;
     }
 
-    public void registerDashboard(Scanner scanner, AdminDAO adminDAO){
+    public void registerDashboard(){
         System.out.print("Full Name:");
         String name = scanner.nextLine().toLowerCase();
         System.out.print("Username: ");
@@ -35,7 +42,7 @@ public class AdminDashboard {
         Admin admin = new Admin(name, username, password);
         adminDAO.register(admin);
     }
-    public byte adminDashboard(Scanner scanner){
+    public byte adminDashboard(){
         System.out.println("Book Buddy");
         System.out.println("[1] Books");
         System.out.println("[2] Authors");
