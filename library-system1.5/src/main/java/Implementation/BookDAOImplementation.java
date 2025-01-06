@@ -1,13 +1,10 @@
 package Implementation;
-
 import Dao.BookDAO;
 import Database.Database;
 import Model.Book;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class BookDAOImplementation implements BookDAO {
     private Database database;

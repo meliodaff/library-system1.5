@@ -1,12 +1,10 @@
 package Dashboard;
-
 import Dao.AuthorDAO;
 import Dao.BookDAO;
 import Dao.PublisherDAO;
 import Model.Author;
 import Model.Book;
 import Model.Publisher;
-
 import java.util.List;
 import java.util.Scanner;
 

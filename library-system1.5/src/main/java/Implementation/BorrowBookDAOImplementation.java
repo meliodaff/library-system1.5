@@ -1,19 +1,21 @@
 package Implementation;
-
 import Dao.AdminDAO;
 import Model.BorrowBook;
 import Dao.BorrowBookDAO;
 import Database.Database;
-import Model.ReturnBook;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class BorrowBookDAOImplementation implements BorrowBookDAO{
-    Database database = new Database();
-    AdminDAO adminDAO = new AdminDAOImplementation();
+    private final Database database;
+    private final AdminDAO adminDAO;
+
+    public BorrowBookDAOImplementation(Database database, AdminDAO adminDAO){
+        this.database = database;
+        this.adminDAO = adminDAO;
+    }
 
     @Override
     public List<BorrowBook> borrowedBooks(){

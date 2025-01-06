@@ -1,22 +1,18 @@
 package Implementation;
 import Dao.AdminDAO;
-import Dao.BookDAO;
 import Database.Database;
 import Model.Admin;
-import Model.Author;
-import Model.Book;
-import Model.Publisher;
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
 public class AdminDAOImplementation implements AdminDAO {
-    Database database = new Database();
-    Scanner scanner = new Scanner(System.in);
+    private final Database database;
+
+    public AdminDAOImplementation(Database database){
+        this.database = database;
+    }
 
     @Override
     public void register(Admin admin) {
@@ -104,6 +100,26 @@ public class AdminDAOImplementation implements AdminDAO {
             e.printStackTrace();
         }
         return admin;
+    }
+
+    public boolean validateSuperAdmin(String username, String password){
+        String query = "SELECT * FROM admins WHERE username = ? AND id = 1";
+
+        try(Connection con = database.getConnection();
+        PreparedStatement pst = con.prepareStatement(query);){
+            pst.setString(1, username);
+            ResultSet rs = pst.executeQuery();
+            if(rs.next()){
+                String encryptedPassword = rs.getString("password");
+                if(BCrypt.checkpw(password, encryptedPassword)){
+                    return true;
+                }
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

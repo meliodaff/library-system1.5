@@ -1,5 +1,4 @@
 package Dashboard;
-
 import Dao.AdminDAO;
 import Model.Admin;
 import java.util.Scanner;
@@ -27,7 +26,7 @@ public class AdminDashboard {
     }
 
     public void registerDashboard(Scanner scanner, AdminDAO adminDAO){
-        System.out.print("Name:");
+        System.out.print("Full Name:");
         String name = scanner.nextLine().toLowerCase();
         System.out.print("Username: ");
         String username = scanner.nextLine().toLowerCase();

@@ -1,6 +1,5 @@
 package Dashboard;
 import Model.Book;
-
 import java.util.List;
 import java.util.Scanner;
 public class BooksDashboard {

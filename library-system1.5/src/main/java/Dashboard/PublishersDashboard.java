@@ -1,7 +1,5 @@
 package Dashboard;
-
 import Model.Publisher;
-
 import java.util.List;
 import java.util.Scanner;
 

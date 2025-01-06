@@ -1,7 +1,5 @@
 package Dao;
-
 import Model.Publisher;
-
 import java.util.List;
 
 public interface PublisherDAO {

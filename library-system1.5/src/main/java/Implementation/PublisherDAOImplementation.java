@@ -1,15 +1,11 @@
 package Implementation;
-
 import Dao.PublisherDAO;
 import Database.Database;
-import Model.Author;
 import Model.Book;
 import Model.Publisher;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.sql.PreparedStatement;
 
 

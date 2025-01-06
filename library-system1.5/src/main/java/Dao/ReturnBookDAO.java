@@ -1,7 +1,5 @@
 package Dao;
-
 import Model.ReturnBook;
-
 import java.util.List;
 
 public interface ReturnBookDAO {

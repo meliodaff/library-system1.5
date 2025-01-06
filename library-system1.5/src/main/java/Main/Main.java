@@ -1,11 +1,9 @@
 package Main;
-
 import Dao.*;
 import Dashboard.*;
 import Database.Database;
 import Implementation.*;
 import Model.*;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,21 +14,19 @@ public class Main {
         AuthorDAO authorDao = new AuthorDAOImplementation(database);
         PublisherDAO publisherDAO = new PublisherDAOImplementation(database);
         Scanner scanner = new Scanner(System.in);
-        AdminDAO adminDAO = new AdminDAOImplementation();
+        AdminDAO adminDAO = new AdminDAOImplementation(database);
         BooksDashboard booksDashboard = new BooksDashboard();
         AuthorsDashboard authorsDashboard = new AuthorsDashboard();
         PublishersDashboard publishersDashboard = new PublishersDashboard();
 
         BorrowBooksDashboard borrowBooksDashboard = new BorrowBooksDashboard();
-        BorrowBookDAO borrowBookDAO = new BorrowBookDAOImplementation();
+        BorrowBookDAO borrowBookDAO = new BorrowBookDAOImplementation(database, adminDAO);
         ReturnBook returnBook = new ReturnBook();
-        ReturnBookDAO returnBookDAO = new ReturnBookDAOImplementation();
+        ReturnBookDAO returnBookDAO = new ReturnBookDAOImplementation(database);
         AdminDashboard adminDashboard = new AdminDashboard();
         DisplayDashboards displayDashboards = new DisplayDashboards();
 
-        //Publisher publisher = new Publisher();
-
-        ReturnBookDashboard returnBookDashboard = new ReturnBookDashboard();
+        ReturnBookDashboard returnBookDashboard = new ReturnBookDashboard(adminDAO);
         while(true){
             int chooseDashboard = adminDashboard.frontDashboard(scanner);
             if(chooseDashboard == 1){
@@ -123,7 +119,16 @@ public class Main {
                 }
             }
             else if (chooseDashboard == 2){
-                adminDashboard.registerDashboard(scanner, adminDAO);
+                System.out.print("Super Admin Username: ");
+                String username = scanner.nextLine();
+                System.out.print("Super Admin Password: ");
+                String password = scanner.nextLine();
+                if(adminDAO.validateSuperAdmin(username, password)){
+                    adminDashboard.registerDashboard(scanner, adminDAO);
+                }
+                else{
+                    System.out.println("Wrong Super Admin Credentials");
+                }
             }
         }
 

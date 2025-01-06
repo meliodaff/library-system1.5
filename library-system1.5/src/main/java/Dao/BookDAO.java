@@ -1,7 +1,5 @@
 package Dao;
-
 import Model.Book;
-
 import java.util.List;
 
 public interface BookDAO {

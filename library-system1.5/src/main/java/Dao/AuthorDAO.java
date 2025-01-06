@@ -1,9 +1,6 @@
 package Dao;
-
 import Model.Author;
-
 import java.util.List;
-import java.util.Scanner;
 
 public interface AuthorDAO {
     List<Author> getAuthors();

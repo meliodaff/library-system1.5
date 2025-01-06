@@ -1,15 +1,16 @@
 package Dashboard;
-
 import Dao.AdminDAO;
-import Implementation.AdminDAOImplementation;
 import Model.ReturnBook;
-
 import java.util.List;
 import java.util.Scanner;
 
 public class ReturnBookDashboard {
 
-    AdminDAO adminDAO = new AdminDAOImplementation();
+    private final AdminDAO adminDAO;
+
+    public ReturnBookDashboard(AdminDAO adminDAO){
+        this.adminDAO = adminDAO;
+    }
 
     public ReturnBook displayReturnBook(Scanner scanner, ReturnBook returnBook){
         System.out.print("Transaction ID: ");

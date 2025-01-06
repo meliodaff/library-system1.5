@@ -3,8 +3,6 @@ package Implementation;
 import Dao.ReturnBookDAO;
 import Database.Database;
 import Model.ReturnBook;
-import Dao.AdminDAO;
-
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,9 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReturnBookDAOImplementation implements ReturnBookDAO {
-    Database database = new Database();
-    AdminDAO adminDAO = new AdminDAOImplementation();
+    private final Database database;
 
+    public ReturnBookDAOImplementation(Database database){
+        this.database = database;
+    }
     @Override
     public ReturnBook returnBook(ReturnBook returnBook, int adminId) {
         String query = "INSERT INTO return_table (transaction_id, `condition`, returned_admin_id) VALUES (?, ?, ?)";
