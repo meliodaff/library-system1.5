@@ -27,7 +27,10 @@ public class ReturnBookDashboard {
         System.out.println("[2] Specific Returned Book");
         System.out.println("[3] Return Book");
         System.out.println("[4] Back");
-        return scanner.nextByte();
+        System.out.print("Enter your Option: ");
+        byte choice = scanner.nextByte();
+        System.out.println("-------------------------------");
+        return choice;
     }
 
     public void displayReturnedBooks(List<ReturnBook> books){
@@ -39,14 +42,14 @@ public class ReturnBookDashboard {
             System.out.println("Borrowed Date: " + returnBook.getBorrowedDate());
             System.out.println("Return Date: " + returnBook.getReturnDate());
             System.out.println("Returned Date: " + returnBook.getReturnedDate());
-            System.out.println("------------------------------------------------");
+            System.out.println("-------------------------------");
         }
     }
 
     public void displayReturnedBooks(ReturnBook returnBook){
         if (returnBook == null) {
             System.out.println("No data available for the specified transaction ID.");
-            System.out.println("------------------------------------------------");
+            System.out.println("-------------------------------");
             return;
         }
         System.out.println("Transaction ID: " + returnBook.getTransactionId());
@@ -56,6 +59,6 @@ public class ReturnBookDashboard {
         System.out.println("Borrowed Date: " + returnBook.getBorrowedDate());
         System.out.println("Return Date: " + returnBook.getReturnDate());
         System.out.println("Returned Date: " + returnBook.getReturnedDate());
-        System.out.println("------------------------------------------------");
+        System.out.println("-------------------------------");
     }
 }

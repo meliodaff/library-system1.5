@@ -20,24 +20,40 @@ public class DisplayDashboards {
                 System.out.print("Book ID: ");
                 System.out.println(bookDao.getSpecificBook(scanner.nextByte()));// change this if ever the records of book reach hundreds
                 // the adminDAOImplementation handles the rendering for input while in here, this handles itself's rendering
-                System.out.println("-------------------------");
+                System.out.println("-------------------------------");
             }
             else if (chooseBooksDashboard == 3) {
                 Book book = booksDashboard.createBook(scanner);
-                if(bookDao.addBook(book)) System.out.println("Added successfully");
-                else System.out.println("An error has occurred");
+                if(bookDao.addBook(book)) {
+                    System.out.println("Added successfully");
+                    System.out.println("-------------------------------");
+                }else {
+                    System.out.println("An error has occurred");
+                    System.out.println("-------------------------------");
+                }
             }
             else if (chooseBooksDashboard == 4){
                 Book book = booksDashboard.createUpdateBook(scanner);
-                if(bookDao.updateBook(book)) System.out.println("Book ID " + book.getId() + " Updated Successfully");
-                else System.out.println("An error has occurred");
+                if(bookDao.updateBook(book)) {
+                    System.out.println("Book ID " + book.getId() + " Updated Successfully");
+                    System.out.println("-------------------------------");
+                }
+                else {
+                    System.out.println("An error has occurred");
+                    System.out.println("-------------------------------");
+                }
             }
-            else if (chooseBooksDashboard == 5){
+            else if (chooseBooksDashboard == 5) {
                 System.out.print("Delete Book ID: ");
                 int id = scanner.nextInt();
                 scanner.nextLine();
-                if(bookDao.deleteBook(id)) System.out.println("Book ID " + id + " Deleted");
-                else System.out.println("An error has occurred");
+                if (bookDao.deleteBook(id)) {
+                    System.out.println("Book ID " + id + " Deleted");
+                    System.out.println("-------------------------------");
+                } else {
+                    System.out.println("An error has occurred");
+                    System.out.println("-------------------------------");
+                }
             }
             else if (chooseBooksDashboard == 6) {
                 break;
@@ -63,24 +79,41 @@ public class DisplayDashboards {
                 int id = scanner.nextInt();
                 List<Author> author = authorDao.getAuthorBooks(id);
                 authorsDashboard.displayAuthorBooks(author);
+
             }
             else if (chooseAuthorsDashboard == 4) {
                 Author author = authorsDashboard.createAuthor(scanner);
-                if(authorDao.addAuthor(author)) System.out.println("Author " + author.getName() + " Added Successfully");
-                else System.out.println("An error has occurred");
-
+                if(authorDao.addAuthor(author)) {
+                    System.out.println("Author " + author.getName() + " Added Successfully");
+                    System.out.println("-------------------------------");
+                }
+                else {
+                    System.out.println("An error has occurred");
+                    System.out.println("-------------------------------");
+                }
             }
-            else if (chooseAuthorsDashboard == 5){
+            else if (chooseAuthorsDashboard == 5) {
                 Author author = authorsDashboard.createUpdateAuthor(scanner);
-                if(authorDao.updateAuthor(author)) System.out.println("Author ID " + author.getId() + " Updated Successfully");
-                else System.out.println("An error has occured");
+                if (authorDao.updateAuthor(author)) {
+                    System.out.println("Author ID " + author.getId() + " Updated Successfully");
+                    System.out.println("-------------------------------");
+                } else {
+                    System.out.println("An error has occurred");
+                    System.out.println("-------------------------------");
+                }
             }
             else if (chooseAuthorsDashboard == 6){
                 System.out.print("Admin ID to be deleted: ");
                 int id = scanner.nextInt();
                 scanner.nextLine();
-                if(authorDao.deleteAuthor(id)) System.out.println("Author ID " + id + " Successfully deleted");
-                else System.out.println("An error has occurred");
+                if(authorDao.deleteAuthor(id)) {
+                    System.out.println("Author ID " + id + " Successfully deleted");
+                    System.out.println("-------------------------------");
+                }
+                else {
+                    System.out.println("An error has occurred");
+                    System.out.println("-------------------------------");
+                }
             }
             else if (chooseAuthorsDashboard == 7){
                 break;
@@ -111,20 +144,36 @@ public class DisplayDashboards {
             }
             else if (choicePublisherDashboard == 4){
                 Publisher publisher = publishersDashboard.createPublisher(scanner); // should i do this?
-                if(publisherDAO.addPublisher(publisher)) System.out.println("Publisher name " + publisher.getName() + " Inserted Successfully");
-                else System.out.println("An error has occured");
+                if(publisherDAO.addPublisher(publisher)) {
+                    System.out.println("Publisher name " + publisher.getName() + " Inserted Successfully");
+                    System.out.println("-------------------------------");
+                }else {
+                    System.out.println("An error has occurred");
+                    System.out.println("-------------------------------");
+                }
             }
             else if (choicePublisherDashboard == 5){
                 Publisher publisher = publishersDashboard.createUpdatePublisher(scanner);
-                if(publisherDAO.updatePublisher(publisher)) System.out.println("Publisher ID " + publisher.getId() + " Updated Successfully");
-                else System.out.println("An error has occurred");
+                if(publisherDAO.updatePublisher(publisher)) {
+                    System.out.println("Publisher ID " + publisher.getId() + " Updated Successfully");
+                    System.out.println("-------------------------------");
+                }else{
+                    System.out.println("An error has occurred");
+                    System.out.println("-------------------------------");
+                }
             }
             else if (choicePublisherDashboard == 6){
                 System.out.print("Publisher ID to be deleted: ");
                 int id = scanner.nextInt();
                 scanner.nextLine();
-                if(publisherDAO.deletePublisher(id)) System.out.println("Publisher ID " + id + " Deleted successfully");
-                else System.out.println("An error has occurred");
+                if(publisherDAO.deletePublisher(id)) {
+                    System.out.println("Publisher ID " + id + " Deleted successfully");
+                    System.out.println("-------------------------------");
+                }
+                else{
+                    System.out.println("An error has occurred");
+                    System.out.println("-------------------------------");
+                }
             }
             else if (choicePublisherDashboard == 7) {
                 break;

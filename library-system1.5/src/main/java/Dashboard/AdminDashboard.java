@@ -1,5 +1,6 @@
 package Dashboard;
 import Dao.AdminDAO;
+import Implementation.AdminDAOImplementation;
 import Model.Admin;
 import java.util.Scanner;
 
@@ -13,44 +14,87 @@ public class AdminDashboard {
 
 
     public byte frontDashboard(){
-        System.out.println("Welcome to book buddy");
         System.out.println("[1] Login");
         System.out.println("[2] Register");
+        System.out.println("[3] Close the Program");
+        System.out.print("Enter your Option: ");
         byte choice = scanner.nextByte();
         scanner.nextLine();
+        System.out.println("-------------------------------");
         return choice;
     }
 
     public Admin loginDashboard(){
-        System.out.println("Book Buddy");
-        System.out.println("Login");
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
-        System.out.print("Password: ");
-        String password = scanner.nextLine();
-        Admin admin = adminDAO.logIn(username, password);
-        return admin;
+        System.out.println("Users Login Dashboard");
+        while (true) {
+            System.out.print("Username: ");
+            String username = scanner.nextLine().trim();
+            System.out.print("Password: ");
+            String password = scanner.nextLine().trim();
+            Admin admin = adminDAO.logIn(username,password);
+            System.out.println("-------------------------------");
+            if(admin !=null) {
+                System.out.println("Welcome to Book Buddy, A Library Management System! ");
+                System.out.println("Admin Name: " + admin.getName());
+                System.out.println("Admin ID: " + admin.getId());
+                System.out.println("System Version: [1.0.0.0]\n");
+                return admin;
+            }
+
+        }
+
     }
 
     public void registerDashboard(){
-        System.out.print("Full Name:");
-        String name = scanner.nextLine().toLowerCase();
-        System.out.print("Username: ");
-        String username = scanner.nextLine().toLowerCase();
-        System.out.print("Password: ");
-        String password = scanner.nextLine().toLowerCase();
-        Admin admin = new Admin(name, username, password);
-        adminDAO.register(admin);
+        System.out.println("Create Account Dashboard");
+        while (true) {
+            System.out.print("Full Name:");
+            String name = scanner.nextLine().toLowerCase();
+            System.out.print("Username: ");
+            String username = scanner.nextLine().toLowerCase().trim();
+            System.out.print("Password: ");
+            String password = scanner.nextLine().toLowerCase().trim();
+            System.out.print("Re-Password: ");
+            String rePassword = scanner.nextLine().toLowerCase().trim();
+            System.out.println("-------------------------------");
+            if (!name.matches("^[a-zA-Z\\s]+$")) {
+                System.out.println("Your Full Name has special characters. Please Try Again!");
+                System.out.println("-------------------------------");
+                continue;
+            }
+            if (password.length() < 12) {
+                System.out.println("Your Password is weak. Please Try Again. ");
+                System.out.println("-------------------------------");
+                continue;
+            }
+            if (!password.equals(rePassword)) {
+                System.out.println("Password doesn't matched. Please Try Again.");
+                System.out.println("-------------------------------");
+                continue;
+            }
+            Admin admin = new Admin(name, username, password);
+           if(AdminDAOImplementation.isUsernameExists(admin.getUsername())){
+                System.out.println("Username Already Exists. Please Try Again.");
+               System.out.println("-------------------------------");
+                continue;
+            }
+            adminDAO.register(admin);
+            break;
+        }
     }
     public byte adminDashboard(){
-        System.out.println("Book Buddy");
+        System.out.println("++Main Menu++");
         System.out.println("[1] Books");
         System.out.println("[2] Authors");
         System.out.println("[3] Publishers");
         System.out.println("[4] Borrow Books");
         System.out.println("[5] Return Books");
         System.out.println("[6] Logout");
+        System.out.print("Enter your Option: ");
         byte choice = scanner.nextByte();
+        scanner.nextLine();
+        System.out.println("-------------------------------");
         return choice;
+
     }
 }

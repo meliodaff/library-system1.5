@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        // Injection Dependencies
         Database database = new Database();
         BookDAO bookDao = new BookDAOImplementation(database);
         AuthorDAO authorDao = new AuthorDAOImplementation(database);
@@ -25,15 +26,17 @@ public class Main {
         ReturnBookDAO returnBookDAO = new ReturnBookDAOImplementation(database);
         AdminDashboard adminDashboard = new AdminDashboard(adminDAO, scanner);
         DisplayDashboards displayDashboards = new DisplayDashboards();
-
         ReturnBookDashboard returnBookDashboard = new ReturnBookDashboard(adminDAO);
+
+        System.out.println("Book Buddy: A Library Management System. [Version 1.0.0.0]");
+        System.out.println("Javarian Corporation. All rights reserved.");
         while(true){
             int chooseDashboard = adminDashboard.frontDashboard();
             if(chooseDashboard == 1){
-                if (adminDashboard.loginDashboard() == null) {
-                    return;
+                Admin admin = adminDashboard.loginDashboard();
+                if (admin == null) {
+                    continue;
                 }
-                System.out.println("Login successful!");
                 while(true) {
                     byte choiceAdminDashboard = adminDashboard.adminDashboard();
                     if (choiceAdminDashboard == 1) {
@@ -103,9 +106,11 @@ public class Main {
                                         System.out.println(returnBook.getBookId());
                                         returnBookDAO.updateBook(returnBook.getTransactionId());
                                         System.out.println("Transaction ID: " + returnBook.getTransactionId() + " Returned Successfully");
+                                        System.out.println("-------------------------------");
                                     }
                                 } else {
                                     System.out.println("Transaction ID does not exist");
+                                    System.out.println("-------------------------------");
                                 }
                             }
                             else if (returnBookChoice == 4){
@@ -114,23 +119,64 @@ public class Main {
                         }
                     }
                     else if (choiceAdminDashboard == 6){
-                        break;
+                        System.out.println("Are you sure you want to LOGOUT?");
+                        System.out.println("[1] YES");
+                        System.out.println("[2] NO");
+                        System.out.print("Enter your Option: ");
+                        byte choice = scanner.nextByte();
+                        System.out.println("-------------------------------");
+                        if(choice ==1){
+                            System.out.println(admin.getName() + " has been LOGGED OUT. ");
+                            System.out.println("-------------------------------");
+                            break;
+                        } else if (choice ==2) {
+                            System.out.println("Back to the Main Menu");
+                            System.out.println("-------------------------------");
+                        }
+
+                    }
+                    else {
+                        System.out.println("Invalid Inputs. Please Try Again.");
+                        System.out.println("-------------------------------");
                     }
                 }
             }
             else if (chooseDashboard == 2){
-                System.out.print("Super Admin Username: ");
-                String username = scanner.nextLine();
-                System.out.print("Super Admin Password: ");
-                String password = scanner.nextLine();
-                if(adminDAO.validateSuperAdmin(username, password)){
-                    adminDashboard.registerDashboard();
+                while (true){
+                    System.out.print("Super Admin Username: ");
+                    String username = scanner.nextLine();
+                    System.out.print("Super Admin Password: ");
+                    String password = scanner.nextLine();
+                    if(adminDAO.validateSuperAdmin(username, password)){
+                        System.out.println("-------------------------------");
+                        adminDashboard.registerDashboard();
+                        break;
+                    }
+                    else{
+                        System.out.println("Wrong Super Admin Credentials");
+                        System.out.println("-------------------------------");
+                    }
                 }
-                else{
-                    System.out.println("Wrong Super Admin Credentials");
+            }else if (chooseDashboard ==3){
+                System.out.println("Are you sure you want to exit the program? ");
+                System.out.println("[1] YES");
+                System.out.println("[2] NO");
+                System.out.print("Enter your Option: ");
+                byte choice = scanner.nextByte();
+                System.out.println("-------------------------------");
+                if(choice ==1){
+                    System.out.println("Thank you for using our system. Goodbye!!");
+                    System.out.println("-------------------------------");
+                    System.exit(0);
+                } else if (choice==2) {
+                    System.out.println("Going back to the Home Page");
+                    System.out.println("-------------------------------");
                 }
+
+            }else {
+                System.out.println("Invalid Inputs. Please Try Again.");
+                System.out.println("-------------------------------");
             }
         }
-
     }
 }

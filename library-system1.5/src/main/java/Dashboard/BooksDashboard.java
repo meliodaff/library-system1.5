@@ -13,9 +13,10 @@ public class BooksDashboard {
         System.out.println("[4] Update Book");
         System.out.println("[5] Delete Book");
         System.out.println("[6] Back");
-        System.out.println("-------------------------");
+        System.out.print("Enter your Option: ");
         byte choice = scanner.nextByte();
         scanner.nextLine();
+        System.out.println("-------------------------------");
         return choice;
     }
 
@@ -28,7 +29,7 @@ public class BooksDashboard {
             System.out.println("Stock: " + book.getStock());
             System.out.println("Author: " + book.getAuthor());
             System.out.println("Publisher: " + book.getPublisher());
-            System.out.println("-----------------------------------");
+            System.out.println("-------------------------------");
         }
     }
 
