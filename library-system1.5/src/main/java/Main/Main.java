@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) {    
         // Injection Dependencies
         Database database = new Database();
         BookDAO bookDao = new BookDAOImplementation(database);
@@ -69,14 +69,20 @@ public class Main {
                                 if(borrowBookDAO.checkAvailability(bookId)){
                                     BorrowBook borrowBook = borrowBookDAO.createBorrowBook(scanner);
                                     borrowBook.setBookId(bookId);
-                                    borrowBook.setAdminId(adminDAO.getAdminId());
+                                    borrowBook.setAdminId(admin.getId());
                                     if(borrowBookDAO.borrowBook(borrowBook)) {
                                         borrowBookDAO.minusStack(bookId);
                                         System.out.println("Book ID: " + bookId + " Successfully borrowed By Student ID: " + borrowBook.getStudentId());
+                                        System.out.println("-------------------------------");
+                                    }else{
+                                        System.out.println("An error has occurred");
+                                        System.out.println("-------------------------------");
                                     }
-                                    else System.out.println("An error has occurred");
                                 }
-                                else System.out.println("Book ID: " + bookId + " has no stocks");
+                                else {
+                                    System.out.println("Book ID: " + bookId + " has no stocks");
+                                    System.out.println("-------------------------------");
+                                }
 
                             }
                             else if (choiceBorrowBookDashboard == 4){
@@ -102,7 +108,7 @@ public class Main {
                                 if (returnBookDAO.checkTransactionId(returnBook.getTransactionId(), returnBook)) {
                                     returnBook = returnBookDAO.returnBook(returnBook, adminDAO.getAdminId());
                                     if (returnBook != null) {
-                                        returnBookDAO.plusStock(returnBook.getBookId()); // this doesnt work, why?
+                                        returnBookDAO.plusStock(returnBook.getBookId()); // this doesn't work, why?
                                         System.out.println(returnBook.getBookId());
                                         returnBookDAO.updateBook(returnBook.getTransactionId());
                                         System.out.println("Transaction ID: " + returnBook.getTransactionId() + " Returned Successfully");
