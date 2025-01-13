@@ -39,8 +39,9 @@ public class AdminDashboard {
                 System.out.println("Admin ID: " + admin.getId());
                 System.out.println("System Version: [1.0.0.0]\n");
                 return admin;
+            }else {
+                return null;
             }
-
         }
 
     }
@@ -72,6 +73,7 @@ public class AdminDashboard {
                 System.out.println("-------------------------------");
                 continue;
             }
+
             Admin admin = new Admin(name, username, password);
            if(AdminDAOImplementation.isUsernameExists(admin.getUsername())){
                 System.out.println("Username Already Exists. Please Try Again.");
@@ -82,7 +84,7 @@ public class AdminDashboard {
             break;
         }
     }
-    public byte adminDashboard(){
+    public byte adminDashboard(boolean isSuperAdmin){
         System.out.println("++Main Menu++");
         System.out.println("[1] Books");
         System.out.println("[2] Authors");
@@ -90,6 +92,8 @@ public class AdminDashboard {
         System.out.println("[4] Borrow Books");
         System.out.println("[5] Return Books");
         System.out.println("[6] Logout");
+        if(isSuperAdmin)
+            System.out.println("[7] Account Settings");
         System.out.print("Enter your Option: ");
         byte choice = scanner.nextByte();
         scanner.nextLine();
@@ -97,4 +101,5 @@ public class AdminDashboard {
         return choice;
 
     }
+
 }

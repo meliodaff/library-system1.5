@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {    
         // Injection Dependencies
+
         Database database = new Database();
         BookDAO bookDao = new BookDAOImplementation(database);
         AuthorDAO authorDao = new AuthorDAOImplementation(database);
@@ -27,6 +28,7 @@ public class Main {
         AdminDashboard adminDashboard = new AdminDashboard(adminDAO, scanner);
         DisplayDashboards displayDashboards = new DisplayDashboards();
         ReturnBookDashboard returnBookDashboard = new ReturnBookDashboard(adminDAO);
+        AccountSettingDashboard accountSettingDashboard = new AccountSettingDashboard(adminDAO, scanner);
 
         System.out.println("Book Buddy: A Library Management System. [Version 1.0.0.0]");
         System.out.println("Javarian Corporation. All rights reserved.");
@@ -38,7 +40,8 @@ public class Main {
                     continue;
                 }
                 while(true) {
-                    byte choiceAdminDashboard = adminDashboard.adminDashboard();
+                    boolean isSuperAdmin = adminDAO.isSuperAdmin(admin);
+                    byte choiceAdminDashboard = adminDashboard.adminDashboard(isSuperAdmin);
                     if (choiceAdminDashboard == 1) {
                         displayDashboards.displayOne(booksDashboard,bookDao, scanner);
                     } else if (choiceAdminDashboard == 2) {
@@ -140,8 +143,12 @@ public class Main {
                             System.out.println("-------------------------------");
                         }
 
-                    }
-                    else {
+                    } else if (choiceAdminDashboard ==7 && isSuperAdmin) {
+                        accountSettingDashboard.displayAccountSettings();
+                    } else if(choiceAdminDashboard ==7) {
+                        System.out.println("Invalid Inputs. Please Try Again.");
+                        System.out.println("-------------------------------");
+                    }else{
                         System.out.println("Invalid Inputs. Please Try Again.");
                         System.out.println("-------------------------------");
                     }
@@ -185,4 +192,5 @@ public class Main {
             }
         }
     }
+
 }
