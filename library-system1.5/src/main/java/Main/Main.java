@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {    
+    public static void main(String[] args) {
         // Injection Dependencies
 
         Database database = new Database();
@@ -104,12 +104,13 @@ public class Main {
                                 System.out.print("Transaction ID: ");
                                 byte transactionId = scanner.nextByte();
                                 scanner.nextLine();
+                                System.out.println("-------------------------------");
                                 returnBookDashboard.displayReturnedBooks(returnBookDAO.getSpecificReturnedBook(transactionId));
                             }
                             else if (returnBookChoice == 3){
                                 returnBook = returnBookDashboard.displayReturnBook(scanner, returnBook);
                                 if (returnBookDAO.checkTransactionId(returnBook.getTransactionId(), returnBook)) {
-                                    returnBook = returnBookDAO.returnBook(returnBook, adminDAO.getAdminId());
+                                    returnBook = returnBookDAO.returnBook(returnBook, admin.getId());
                                     if (returnBook != null) {
                                         returnBookDAO.plusStock(returnBook.getBookId()); // this doesn't work, why?
                                         System.out.println(returnBook.getBookId());
@@ -142,7 +143,6 @@ public class Main {
                             System.out.println("Back to the Main Menu");
                             System.out.println("-------------------------------");
                         }
-
                     } else if (choiceAdminDashboard ==7 && isSuperAdmin) {
                         accountSettingDashboard.displayAccountSettings();
                     } else if(choiceAdminDashboard ==7) {
@@ -185,12 +185,10 @@ public class Main {
                     System.out.println("Going back to the Home Page");
                     System.out.println("-------------------------------");
                 }
-
             }else {
                 System.out.println("Invalid Inputs. Please Try Again.");
                 System.out.println("-------------------------------");
             }
         }
     }
-
 }
