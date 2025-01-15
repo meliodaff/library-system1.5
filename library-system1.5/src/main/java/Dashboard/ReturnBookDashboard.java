@@ -19,6 +19,7 @@ public class ReturnBookDashboard {
         System.out.print("Condition: ");
         String condition = scanner.nextLine();
         returnBook = new ReturnBook(adminDAO.getAdminId(), transactionId, condition, returnBook.getBookId());
+        System.out.println("-------------------------------");
         return returnBook;
     }
 

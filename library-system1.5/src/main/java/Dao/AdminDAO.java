@@ -10,4 +10,5 @@ public interface AdminDAO {
     void viewAllUsers();
     void updateUser(int id, String username, String password);
     void toggleUserStatus(int id, boolean activate);
+    boolean isAccountActive(String username);
 }

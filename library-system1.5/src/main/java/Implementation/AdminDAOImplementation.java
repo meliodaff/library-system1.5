@@ -82,14 +82,8 @@ public class AdminDAOImplementation implements AdminDAO {
 
             if(rs.next()){
                 String encryptedPassword = rs.getString("password");
-                boolean isActive = rs.getBoolean("is_active");
                 if(BCrypt.checkpw(password, encryptedPassword)){
-                    if(!isActive) {
-                        System.out.println("-------------------------------");
-                        System.out.println("Your Account is Deactivated. Please Try Again or Contact the Admin.");
-                        return null;
-                    }
-                    admin = new Admin(rs.getString("name"), username, encryptedPassword);
+                                      admin = new Admin(rs.getString("name"), username, encryptedPassword);
                     admin.setId(rs.getInt("id"));
                 }
                 else{
@@ -221,6 +215,22 @@ public class AdminDAOImplementation implements AdminDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean isAccountActive(String username) {
+        String query = "SELECT is_active FROM admins WHERE username = ?";
+        try (Connection con = database.getConnection();
+             PreparedStatement pst = con.prepareStatement(query)) {
+            pst.setString(1, username);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean("is_active");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
 }

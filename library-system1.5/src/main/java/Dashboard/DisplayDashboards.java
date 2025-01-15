@@ -1,10 +1,7 @@
 package Dashboard;
-import Dao.AuthorDAO;
-import Dao.BookDAO;
-import Dao.PublisherDAO;
-import Model.Author;
-import Model.Book;
-import Model.Publisher;
+import Dao.*;
+import Model.*;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -177,6 +174,122 @@ public class DisplayDashboards {
             }
             else if (choicePublisherDashboard == 7) {
                 break;
+            }
+        }
+    }
+    public void displayFour(BorrowBooksDashboard borrowBooksDashboard, Scanner scanner, BorrowBookDAO borrowBookDAO, Admin admin){
+        while(true){
+            byte choiceBorrowBookDashboard = borrowBooksDashboard.borrowBooksDashboard(scanner);
+            if(choiceBorrowBookDashboard == 1){
+                List<BorrowBook> borrowedBooks = borrowBookDAO.borrowedBooks();
+                borrowBooksDashboard.displayBorrowedBooks(borrowedBooks);
+            }
+            else if (choiceBorrowBookDashboard == 2){
+                scanner.nextLine();
+                System.out.print("Student ID: ");
+                String studentId = scanner.nextLine();
+                List<BorrowBook> borrowedBook = borrowBookDAO.specificBorrowedBook(studentId);
+                borrowBooksDashboard.displayBorrowedBooks(borrowedBook);
+            }
+            else if (choiceBorrowBookDashboard == 3){
+                scanner.nextLine();
+                System.out.print("Book ID: ");
+                int bookId = scanner.nextInt();
+                scanner.nextLine();
+                if(borrowBookDAO.checkAvailability(bookId)){
+                    BorrowBook borrowBook = borrowBookDAO.createBorrowBook(scanner);
+                    borrowBook.setBookId(bookId);
+                    borrowBook.setAdminId(admin.getId());
+                    if(borrowBookDAO.borrowBook(borrowBook)) {
+                        borrowBookDAO.minusStack(bookId);
+                        System.out.println("Book ID: " + bookId + " Successfully borrowed By Student ID: " + borrowBook.getStudentId());
+                        System.out.println("-------------------------------");
+                    }else{
+                        System.out.println("An error has occurred");
+                        System.out.println("-------------------------------");
+                    }
+                }
+                else {
+                    System.out.println("Book ID: " + bookId + " has no stocks");
+                    System.out.println("-------------------------------");
+                }
+
+            }
+            else if (choiceBorrowBookDashboard == 4){
+                break;
+            }
+        }
+    }
+    public void displayFive(ReturnBookDashboard returnBookDashboard, Scanner scanner, ReturnBookDAO returnBookDAO, ReturnBook returnBook, Admin admin){
+        while (true){
+            byte returnBookChoice = returnBookDashboard.returnBooksDashboard(scanner);
+            if(returnBookChoice == 1){
+                returnBookDashboard.displayReturnedBooks(returnBookDAO.getReturnedBooks());
+            }
+            else if (returnBookChoice == 2) {
+                scanner.nextLine();
+                System.out.print("Transaction ID: ");
+                byte transactionId = scanner.nextByte();
+                scanner.nextLine();
+                System.out.println("-------------------------------");
+                returnBookDashboard.displayReturnedBooks(returnBookDAO.getSpecificReturnedBook(transactionId));
+            }
+            else if (returnBookChoice == 3){
+                returnBook = returnBookDashboard.displayReturnBook(scanner, returnBook);
+                if (returnBookDAO.checkTransactionId(returnBook.getTransactionId(), returnBook)) {
+                    returnBook = returnBookDAO.returnBook(returnBook, admin.getId());
+                    if (returnBook != null) {
+                        returnBookDAO.plusStock(returnBook.getBookId()); // this doesn't work, why?
+                        System.out.println(returnBook.getBookId());
+                        System.out.println("-------------------------------");
+                        System.out.println("Transaction ID: " + returnBook.getTransactionId() + " Returned Successfully");
+                        System.out.println("-------------------------------");
+                    }
+                } else {
+                    System.out.println("Transaction ID does not exist");
+                    System.out.println("-------------------------------");
+                }
+            }
+            else if (returnBookChoice == 4){
+                break;
+            }
+        }
+    }
+
+    public boolean displaySix(Scanner scanner, Admin admin){
+        while (true) {
+            System.out.println("Are you sure you want to LOGOUT?");
+            System.out.println("[1] YES");
+            System.out.println("[2] NO");
+            System.out.print("Enter your Option: ");
+            byte choice = scanner.nextByte();
+            System.out.println("-------------------------------");
+            if(choice ==1){
+                System.out.println(admin.getName() + " has been LOGGED OUT. ");
+                System.out.println("-------------------------------");
+                return true;
+            } else if (choice ==2) {
+                System.out.println("Back to the Main Menu");
+                System.out.println("-------------------------------");
+                return false;
+            }
+        }
+
+    }
+
+    public void superAdminDashboard(Scanner scanner, AdminDAO adminDAO, AdminDashboard adminDashboard){
+        while (true) {
+            System.out.print("Super Admin Username: ");
+            String username = scanner.nextLine();
+            System.out.print("Super Admin Password: ");
+            String password = scanner.nextLine();
+            if (adminDAO.validateSuperAdmin(username, password)) {
+                System.out.println("-------------------------------");
+                adminDashboard.registerDashboard();
+                break;
+            } else {
+                System.out.println("Wrong Super Admin Credentials");
+                System.out.println("-------------------------------");
             }
         }
     }

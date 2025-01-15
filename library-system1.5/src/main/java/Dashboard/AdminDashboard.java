@@ -11,8 +11,6 @@ public class AdminDashboard {
         this.adminDAO = adminDAO;
         this.scanner = scanner;
     }
-
-
     public byte frontDashboard(){
         System.out.println("[1] Login");
         System.out.println("[2] Register");
@@ -31,21 +29,26 @@ public class AdminDashboard {
             String username = scanner.nextLine().trim();
             System.out.print("Password: ");
             String password = scanner.nextLine().trim();
-            Admin admin = adminDAO.logIn(username,password);
             System.out.println("-------------------------------");
+            Admin admin = adminDAO.logIn(username,password);
             if(admin !=null) {
+                boolean isActive = adminDAO.isAccountActive(admin.getUsername());
+                if (!isActive) {
+                    System.out.println("Your Account is Deactivated. Please Try Again or Contact the Admin.");
+                    System.out.println("-------------------------------");
+                    return null;  // Return null to go back to front dashboard
+                }
+                System.out.println("Login Successful");
+                System.out.println("-------------------------------");
                 System.out.println("Welcome to Book Buddy, A Library Management System! ");
                 System.out.println("Admin Name: " + admin.getName());
                 System.out.println("Admin ID: " + admin.getId());
                 System.out.println("System Version: [1.0.0.0]\n");
                 return admin;
-            }else {
-                return null;
             }
         }
 
     }
-
     public void registerDashboard(){
         System.out.println("Create Account Dashboard");
         while (true) {
