@@ -15,9 +15,10 @@ public class AuthorsDashboard {
         System.out.println("[5] Update Author");
         System.out.println("[6] Delete Author");
         System.out.println("[7] Back");
-        System.out.println("-------------------------");
+        System.out.print("Enter your Option: ");
         byte choice = scanner.nextByte();
         scanner.nextLine();
+        System.out.println("-------------------------------");
         return choice;
     }
 
@@ -26,7 +27,7 @@ public class AuthorsDashboard {
             System.out.println("Author's ID: " + author.getId());
             System.out.println("Author's name: " + author.getName());
             System.out.println("Author's email: " + author.getEmail());
-            System.out.println("-------------------------------------");
+            System.out.println("-------------------------------");
         }
     }
 
@@ -34,22 +35,25 @@ public class AuthorsDashboard {
         System.out.println("Author's ID: " + author.getId());
         System.out.println("Author's name: " + author.getName());
         System.out.println("Author's email: " + author.getEmail());
+        System.out.println("-------------------------------");
     }
 
     public void displayAuthorBooks(List<Author> author){
         byte i = 1;
         if(author == null || author.isEmpty()){ // i think isEmpty can handle this expression
             System.out.println("Author has no books");
+            System.out.println("-------------------------------");
         }
         for(Author authorBooks : author){
             if(i > 0){
                 System.out.println("Author name: " + authorBooks.getName());
                 System.out.println("Author email: " + authorBooks.getEmail());
+                System.out.println("-------------------------------");
                 i--;
             }
-            System.out.println("------------------");
+            System.out.println("-------------------------------");
             System.out.println(authorBooks.getBooks());
-            System.out.println("------------------");
+            System.out.println("-------------------------------");
         }
     }
 
@@ -59,6 +63,7 @@ public class AuthorsDashboard {
         System.out.print("Author's email: ");
         String email = scanner.nextLine();
         Author author = new Author(name, email);
+        System.out.println("-------------------------------");
         return author;
     }
 
@@ -71,6 +76,7 @@ public class AuthorsDashboard {
         System.out.print("Author's email: ");
         String email = scanner.nextLine();
         Author author = new Author(id, name, email);
+        System.out.println("-------------------------------");
         return author;
     }
 }
