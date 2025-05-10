@@ -30,7 +30,6 @@ public class ReturnBookDAOImplementation implements ReturnBookDAO {
             pst.executeUpdate();
             return returnBook;
         } catch (Exception e) {
-            System.out.printf("im here");
             e.printStackTrace();
         }
         return null;
@@ -91,12 +90,21 @@ public class ReturnBookDAOImplementation implements ReturnBookDAO {
             CallableStatement cs = con.prepareCall(query);){
             ResultSet rs = cs.executeQuery();
 
-            while(rs.next()){
-                book = new ReturnBook(rs.getInt("id"), rs.getString("student_id"), rs.getString("title"), rs.getString("admin_name"), rs.getString("borrowed_date"), rs.getString("return_date"), rs.getString("returned_date"));
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String studentId = rs.getString("student_id");
+                String title = rs.getString("title");
+                String adminName = rs.getString("admin_name");
+                String borrowedDate = rs.getString("borrowed_date");
+                String returnDate = rs.getString("return_date");
+                String returnedDate = rs.getString("returned_date");
+                book = new ReturnBook(id, studentId, title, adminName, borrowedDate, returnDate, returnedDate);
                 books.add(book);
             }
+
         }
         catch (Exception e){
+            System.err.println("Error in getReturnedBooks: " + e.getMessage());
             e.printStackTrace();
         }
         return books;

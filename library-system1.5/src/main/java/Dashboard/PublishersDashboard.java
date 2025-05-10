@@ -14,9 +14,10 @@ public class PublishersDashboard {
         System.out.println("[5] Update Publisher");
         System.out.println("[6] Delete Publisher");
         System.out.println("[7] Back");
-        System.out.println("-------------------------");
+        System.out.print("Enter your Option: ");
         byte choice = scanner.nextByte();
         scanner.nextLine();
+        System.out.println("-------------------------------");
         return choice;
     }
 
@@ -26,7 +27,7 @@ public class PublishersDashboard {
             System.out.println("Publisher's name: " + publisher.getName());
             System.out.println("Publisher's email: " + publisher.getEmail());
             System.out.println("Publisher's address: " + publisher.getAddress());
-            System.out.println("-----------------------------------");
+            System.out.println("-------------------------------");
         }
     }
 
@@ -35,23 +36,26 @@ public class PublishersDashboard {
         System.out.println("Publisher's name: " + publisher.getName());
         System.out.println("Publisher's email: " + publisher.getEmail());
         System.out.println("Publisher's address: " + publisher.getAddress());
+        System.out.println("-------------------------------");
     }
 
     public void displayPublisherBooks(List<Publisher> publisher) {
         byte i = 1;
         if (publisher == null || publisher.isEmpty()) { // i think isEmpty can handle this expression
             System.out.println("publisher has no books");
+            System.out.println("-------------------------------");
         }
         for (Publisher publisherBooks : publisher) {
             if (i > 0) {
                 System.out.println("Publisher's name: " + publisherBooks.getName());
                 System.out.println("Publisher's email: " + publisherBooks.getEmail());
                 System.out.println("Publisher's address: " + publisherBooks.getAddress());
+                System.out.println("-------------------------------");
                 i--;
             }
-            System.out.println("------------------");
+            System.out.println("-------------------------------");
             System.out.println(publisherBooks.getBooks());
-            System.out.println("------------------");
+            System.out.println("-------------------------------");
         }
     }
 
@@ -63,6 +67,7 @@ public class PublishersDashboard {
         System.out.print("Publisher's address: ");
         String address = scanner.nextLine();
         Publisher publisher = new Publisher(name, email, address);
+        System.out.println("-------------------------------");
         return publisher;
     }
 
@@ -77,6 +82,7 @@ public class PublishersDashboard {
         System.out.print("Publisher's address: ");
         String address = scanner.nextLine();
         Publisher publisher = new Publisher(id, name, email, address);
+        System.out.println("-------------------------------");
         return publisher;
     }
 }

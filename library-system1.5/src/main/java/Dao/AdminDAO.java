@@ -6,4 +6,9 @@ public interface AdminDAO {
     Admin logIn(String username, String password);
     int getAdminId();
     boolean validateSuperAdmin(String username, String password);
+    boolean isSuperAdmin(Admin admin);
+    void viewAllUsers();
+    void updateUser(int id, String username, String password);
+    void toggleUserStatus(int id, boolean activate);
+    boolean isAccountActive(String username);
 }

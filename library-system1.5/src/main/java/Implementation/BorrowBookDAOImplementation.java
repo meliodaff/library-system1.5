@@ -120,6 +120,7 @@ public class BorrowBookDAOImplementation implements BorrowBookDAO{
         System.out.print("Return Date (YYY-mm-dd): ");
         String returnDate = scanner.nextLine();
         BorrowBook borrowBook = new BorrowBook(studentId, adminDAO.getAdminId(), returnDate);
+        System.out.println("-------------------------------");
         return borrowBook;
     }
 
